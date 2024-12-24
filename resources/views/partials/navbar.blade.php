@@ -1,4 +1,4 @@
-<div class="bg-base-300 fixed top-0 w-full z-50">
+<div class="bg-base-300/70 fixed top-0 w-full z-50">
   <div class="navbar container mx-auto">
     <div class="flex-1">
       <a href="/" class="btn btn-ghost text-xl">daisyUI</a>
