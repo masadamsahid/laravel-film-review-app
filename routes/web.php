@@ -3,6 +3,7 @@
 use App\Http\Controllers\FilmsController;
 use App\Http\Controllers\GenresController;
 use App\Models\Film;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,5 @@ Route::get('/', function () {
 
 Route::resource('genres', GenresController::class);
 Route::resource('films', FilmsController::class);
+
+Auth::routes();
