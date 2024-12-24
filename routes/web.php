@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\FilmsController;
 use App\Http\Controllers\GenresController;
+use App\Models\Film;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('app');
+    $films = Film::all();
+
+    return view("pages.films.index", ["films"=> $films]);
 });
 
 Route::resource('genres', GenresController::class);
+Route::resource('films', FilmsController::class);
