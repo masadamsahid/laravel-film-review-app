@@ -12,6 +12,8 @@ class Film extends Model
     protected $table = "films";
     protected $fillable = ["title", "year", "summary", "poster", "genre_id"];
 
-
-    
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
 }
