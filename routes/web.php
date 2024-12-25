@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CastController;
 use App\Http\Controllers\FilmsController;
 use App\Http\Controllers\GenresController;
 use App\Http\Controllers\ReviewsController;
@@ -27,5 +28,7 @@ Route::get('/', function () {
 Route::resource('genres', GenresController::class);
 Route::resource('films', FilmsController::class);
 Route::post('films/{id}/reviews', [FilmsController::class,'store_review']);
+
+Route::resource('casts', CastController::class);
 
 Auth::routes();
