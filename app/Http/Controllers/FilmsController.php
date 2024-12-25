@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Film;
 use App\Models\Genre;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class FilmsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -71,6 +73,7 @@ class FilmsController extends Controller
     {
         //
         $film = Film::find($id);
+        // dd($film->reviews);
 
         return view("pages.films.show", ["film" => $film]);
     }
@@ -136,5 +139,36 @@ class FilmsController extends Controller
         $film->delete();
 
         return redirect("/films");
+    }
+
+
+    // Film Reviews Controllers
+    public function create_review(Request $request, $film_id)
+    {
+        $film = Film::find($film_id);
+
+        return view('pages.films.create_review', ['film' => $film]);
+    }
+
+    public function store_review(Request $request, $film_id)
+    {
+        $validated = $request->validate([
+            "body" => "required|max:20000",
+            "points" => "integer|min:0|max:10",
+        ]);
+
+        $curr_user = Auth::user();
+
+        $review = new Review;
+
+        $review->user_id = $curr_user->id;
+        $review->film_id = $film_id;
+
+        $review->points = $validated["points"];
+        $review->body = $validated["body"];
+
+        $review->save();
+
+        return redirect("/films/" . $film_id);
     }
 }
