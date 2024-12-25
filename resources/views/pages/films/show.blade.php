@@ -1,16 +1,35 @@
 @php
-  function is_user_id_exists($id, $arr)
-  {
-      $is_exists = false;
-      foreach ($arr as $item) {
-          if ($item->user_id === $id) {
-              $is_exists = true;
-              break;
-          }
-      }
-      return $is_exists;
-  }
   $user = Auth::user();
+
+  if (!function_exists('is_user_id_exists')) {
+      function is_user_id_exists($id, $arr)
+      {
+          $is_exists = false;
+          foreach ($arr as $item) {
+              if ($item->user_id === $id) {
+                  $is_exists = true;
+                  break;
+              }
+          }
+          return $is_exists;
+      }
+  }
+
+  if (!function_exists('get_rating_avg')) {
+      function get_rating_avg($film)
+      {
+          $length = count($film->reviews);
+          if ($length < 1) {
+              return 0;
+          }
+          $sum = 0;
+          foreach ($film->reviews as $r) {
+              $sum += $r->points;
+          }
+          return $sum / $length;
+      }
+  }
+
 @endphp
 
 @extends('layouts.master')
@@ -32,21 +51,28 @@
       </section>
     @endauth
     <main class="container flex p-4 mx-auto gap-4 border border-accent rounded-md">
-      <figure class="max-w-60 max-h-96">
+      <figure class="max-w-60 max-h-96 relative">
+        <span class="badge badge-lg badge-accent my-auto absolute translate-x-1/2 -translate-y-1/2 top-0 right-0">
+          &#x2605; {{ count($film->reviews) < 1 ? 'N/A' : get_rating_avg($film) }}
+        </span>
         <img src="{{ asset('uploads/' . $film->poster) }}" alt="" srcset="">
       </figure>
-      <div class="flex flex-col gap-3">
+      <div class="flex-1 flex flex-col gap-3">
         <h1 class="text-6xl font-bold">
           {{ $film->title }}
         </h1>
+        <p>Added on {{ date_format($film->created_at, 'd, M Y') }} {{ $film->updated_at > $film->created_at ?? '(updated at ' . date_format($film->updated_at, 'd, M Y') . ')' }}</p>
         <div class="flex gap-2 items-center">
           <p>Released on {{ $film->year }}</p>
           &bull;
           <div class="badge badge-lg badge-accent">{{ $film->genre->name }}</div>
         </div>
-        <article class="">
-          {{ $film->summary }}
-        </article>
+        <div>
+          <p>Summary:</p>
+          <article class="">
+            {{ $film->summary }}
+          </article>
+        </div>
       </div>
     </main>
 
@@ -91,7 +117,7 @@
       <div class="flex flex-col gap-4">
         @foreach ($film->reviews as $r)
           <div class="flex gap-4 w-full relative group">
-            @if ($user->id === $r->user_id)
+            @if ($user != null && $user->id === $r->user_id)
               <div class="z-20 absolute top-0 right-0 hidden group-hover:flex gap-2">
                 <a href="/reviews/{{ $r->id }}/edit" class="btn btn-sm btn-accent">
                   Edit
@@ -109,9 +135,16 @@
               </div>
             </div>
             <div class="flex-1 flex flex-col gap-2">
-              <h2 class="card-title">
-                {{ $r->user->name }} &bull; <span class="text-accent fw-bold"><span class="underline">{{ $r->points }}/10</span> &#x2605;</span>
-              </h2>
+              <div class="flex gap-2 items-center">
+                <h2 class="card-title">
+                  {{ $r->user->name }}
+                </h2>
+                &bull;
+                <span class="text-accent fw-bold text-xl">&#x2605; <span class="underline">{{ $r->points }}/10</span></span>
+                <p class="text-warning italic">
+                  {{ $r->updated_at > $r->created_at ? 'last update at ' . date_format($r->updated_at, 'd, M Y') : 'written at ' . date_format($r->created_at, 'd, M Y') }}
+                </p>
+              </div>
               <div class="card card-side bg-base-100 shadow-xl">
                 <p class="card-body border border-accent rounded-md">
                   {{ $r->body }}
