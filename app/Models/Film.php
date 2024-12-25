@@ -21,4 +21,9 @@ class Film extends Model
     {
         return $this->hasMany(Review::class);
     }
+    
+    public function actors()
+    {
+        return $this->hasMany(Actor::class);
+    }
 }

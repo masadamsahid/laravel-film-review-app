@@ -5,6 +5,7 @@
     </div>
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
+        <li><a href="/casts">Casts</a></li>
         <li><a href="/genres">Genres</a></li>
         <li>
           <details>
