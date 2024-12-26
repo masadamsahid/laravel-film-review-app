@@ -53,67 +53,87 @@
 @endpush
 
 @section('content')
-  <div class="mb-4 d-flex justify-content-end align-items-center">
-    <a href="/casts/create" class="btn btn-primary d-flex justify-center align-items-center" style="width: fit-content; gap: .8rem">
-      <i class="fas fa-plus"></i>
-      Add New Cast
-    </a>
-  </div>
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Cast List</h3>
+  <main class="mx-auto container">
+    <div class="mb-4 flex gap-2 justify-end items-center">
+      <a href="/casts/create" class="btn btn-accent flex justify-center items-center">
+        Add New Cast
+      </a>
     </div>
-    <div class="card-body">
-      <table id="cast-list" class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Added at</th>
-            <th>Last Update</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($casts as $cast)
+    <div class="card bg-black/10">
+      <div class="card-body">
+        <h3 class="card-title">Cast List</h3>
+        <table id="cast-list" class="table">
+          <thead>
             <tr>
-              <td>{{ $cast->id }}</td>
-              <td>{{ $cast->name }}</td>
-              <td>{{ $cast->age }}</td>
-              <td>{{ $cast->created_at }}</td>
-              <td>{{ $cast->updated_at }}</td>
-              <td>
-                <div class="d-flex" style="gap: .8rem;">
-                  <a href="{{ route('casts.show', $cast->id) }}" title="View {{ $cast->name }}'s details" class="btn btn-info">
-                    <i class="fas fa-eye"></i>
-                  </a>
-                  <a href="/casts/{{ $cast->id }}/edit" title="Edit {{ $cast->name }}'s details" class="btn btn-warning">
-                    <i class="fas fa-pencil-alt"></i>
-                  </a>
-                  <form method="POST" action="/casts/{{ $cast->id }}">
-                    @csrf
-                    @method("DELETE")
-                    <button type="submit" title="Delete {{ $cast->name }}?" class="btn btn-danger delete-cast-btn" data-value="{{ $cast->id . ',' . $cast->name }}">
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </form>
-                </div>
-              </td>
+              <th>ID</th>
+              <th>Name</th>
+              {{-- <th>Age</th> --}}
+              <th>Added at</th>
+              <th>Last Update</th>
+              <th>Actions</th>
             </tr>
-          @endforeach
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Added at</th>
-            <th>Last Update</th>
-            <th>Actions</th>
-          </tr>
-        </tfoot>
-      </table>
+          </thead>
+          <tbody>
+            @foreach ($casts as $cast)
+              <tr>
+                <td>{{ $cast->id }}</td>
+                <td>
+                  <div class="flex items-center gap-3">
+                    <div class="avatar">
+                      <div class="mask mask-squircle h-12 w-12">
+                        <img
+                          src="{{ asset('uploads/'.$cast->avatar) }}"
+                          alt="Avatar Tailwind CSS Component" />
+                      </div>
+                    </div>
+                    <div>
+                      <div class="font-bold">{{ $cast->name }}</div>
+                      <div class="text-sm opacity-50 italic">{{ $cast->age }} years old</div>
+                    </div>
+                  </div>
+                </td>
+                {{-- <td>{{ $cast->age }}</td> --}}
+                <td>
+                  {{ $cast->created_at }}
+                </td>
+                <td>
+                  {{ $cast->updated_at }}
+                </td>
+                <td>
+                  <div class="flex gap-2">
+                    <a href="{{ route('casts.show', $cast->id) }}" title="View {{ $cast->name }}'s details" class="btn btn-sm btn-info">
+                      View
+                    </a>
+                    <a href="/casts/{{ $cast->id }}/edit" title="Edit {{ $cast->name }}'s details" class="btn btn-sm btn-warning">
+                      Edit
+                    </a>
+                    <form method="POST" action="/casts/{{ $cast->id }}">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" title="Delete {{ $cast->name }}?" class="btn btn-sm btn-error delete-cast-btn" data-value="{{ $cast->id . ',' . $cast->name }}">
+                        Delete
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+          
+          {{-- 
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Added at</th>
+              <th>Last Update</th>
+              <th>Actions</th>
+            </tr>
+          </tfoot>
+          --}}
+        </table>
+      </div>
     </div>
-  </div>
+  </main>
 @endsection

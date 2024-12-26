@@ -5,25 +5,45 @@
 @endsection
 
 @section('content')
-  <div class="d-flex" style="gap: .8rem">
-    <a href="/casts" class="btn btn-success mb-4 d-flex justify-center align-items-center" style="width: fit-content; gap: .8rem">
-      <i class="fas fa-list-alt"></i>
-      Cast List
-    </a>
-  </div>
-  <div class="p-0 d-flex align-items-center" style="gap: .8rem">
-    <h2 class="font-weight-bolder m-0">{{ $cast->name }}</h2>
-    <a href="/casts/{{ $cast->id }}/edit" class="p-0 btn btn-link text-warning">Edit</a>
-    <form method="POST" action="/casts/{{ $cast->id }}">
-      @csrf
-      @method("DELETE")
-      <button type="submit" class="p-0 btn btn-link text-danger">Delete</button>
-    </form>
-  </div>
-  <hr>
-  <div>
-    <p>Age: {{ $cast->age }}</p>
-    <p>Bio:</p>
-    <blockquote>{{ $cast->bio }}</blockquote>
+  <div class="container mx-auto flex flex-col gap-4">
+    <div class="flex">
+      <a href="/casts" class="btn btn-success">
+        Back
+      </a>
+      <div class="ms-auto p-0 flex align-items-center" style="gap: .8rem">
+        <a href="/casts/{{ $cast->id }}/edit" class="btn btn-warning">Edit</a>
+        <form method="POST" action="/casts/{{ $cast->id }}">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-error">Delete</button>
+        </form>
+      </div>
+    </div>
+    <main class="flex gap-4">
+      <div class="avatar">
+        <div class="mask mask-squircle w-72">
+          <img src="{{ asset('uploads/' . $cast->avatar) }}" />
+        </div>
+      </div>
+      <div class="flex-1">
+        <h2 class="text-6xl font-bold">{{ $cast->name }}</h2>
+        <div class="p-4">
+          <table class="w-full">
+            <tbody>
+              <tr>
+                <td class="w-24">Age</td>
+                <td class="w-4">:</td>
+                <td>{{ $cast->age }} years old</td>
+              </tr>
+              <tr>
+                <td>Bio</td>
+                <td>:</td>
+                <td>{{ $cast->bio }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
   </div>
 @endsection
