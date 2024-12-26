@@ -116,7 +116,7 @@
       <hr>
 
       {{-- Reviews --}}
-      @if (count($film->reviews) > 1)
+      @if (count($film->reviews) >= 1)
         <div class="flex flex-col gap-4">
           @foreach ($film->reviews as $r)
             <div class="flex gap-4 w-full relative group">
@@ -126,17 +126,51 @@
                     Edit
                   </button>
                   <dialog id="edit_review_modal_{{ $r->id }}" class="modal">
-                    <div class="modal-box">
+                    <div class="modal-box w-11/12 max-w-5xl">
                       <h3 class="text-lg font-bold">Edit Your Review</h3>
-                      <p class="py-4">Press ESC key or click outside to close</p>
+                      <form action="/films/{{ $film->id }}/reviews" method="POST" class="flex flex-col gap-2 mb-4">
+                        @if ($errors->any())
+                          <div class="alert alert-error">
+                            <ul>
+                              @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                              @endforeach
+                            </ul>
+                          </div>
+                        @endif
+                        @csrf
+                        @method('PUT')
+                        <textarea name="body" class="textarea textarea-accent" placeholder="Write a review here...">{{ $r->body }}</textarea>
+                        <div class="flex gap-2">
+                          <p>Points:</p>
+                          <div class="flex gap-2 flex-wrap">
+                            @for ($i = 0; $i <= 10; $i++)
+                              <label for="points-{{ $i }}" class="btn btn-accent btn-outline">
+                                <input type="radio" id="points-{{ $i }}" name="points" value="{{ $i }}" {{ $r->points === $i ? 'checked' : null }} class="radio radio-accent" />
+                                <p class="">
+                                  {{ $i }}
+                                </p>
+                              </label>
+                            @endfor
+                          </div>
+                        </div>
+                        <div class="flex gap-2 justify-end">
+                          <button type="reset" class="btn btn-error btn-outline" onclick="edit_review_modal_{{ $r->id }}.close()">Cancel</button>
+                          <button type="submit" class="btn btn-accent">Post Review</button>
+                        </div>
+                      </form>
                     </div>
                     <form method="dialog" class="modal-backdrop">
                       <button>close</button>
                     </form>
                   </dialog>
-                  <button href="/reviews/{{ $r->id }}/edit" class="btn btn-sm btn-error">
-                    Delete
-                  </button>
+                  <form action="/films/{{ $film->id }}/reviews" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-error">
+                      Delete
+                    </button>
+                  </form>
                 </div>
               @endif
               <div>

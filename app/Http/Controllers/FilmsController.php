@@ -207,6 +207,7 @@ class FilmsController extends Controller
             ->first();
 
         $review->delete();
+
         return redirect('/films/' . $film_id);
     }
 }

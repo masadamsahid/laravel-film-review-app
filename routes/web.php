@@ -28,6 +28,8 @@ Route::get('/', function () {
 Route::resource('genres', GenresController::class);
 Route::resource('films', FilmsController::class);
 Route::post('films/{id}/reviews', [FilmsController::class,'store_review']);
+Route::put('films/{id}/reviews', [FilmsController::class,'update_review']);
+Route::delete('films/{id}/reviews', [FilmsController::class,'delete_review']);
 
 Route::resource('casts', CastController::class);
 
