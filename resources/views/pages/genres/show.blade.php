@@ -20,8 +20,10 @@
         {{ $genre->desc }}
       </article>
     </main>
-    <section class="container p-4 mx-auto border border-accent rounded-md">
-      <p>Ini nanti isinya beberapa film random dari kategori di halaman ini</p>
+    <section class="container p-4 mx-auto border border-accent rounded-md grid grid-cols-5 gap-3">
+      @foreach ($films as $f)
+        <x-film-card :f="$f" />
+      @endforeach
     </section>
   </div>
 @endsection
