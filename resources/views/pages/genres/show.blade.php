@@ -20,10 +20,20 @@
         {{ $genre->desc }}
       </article>
     </main>
-    <section class="container p-4 mx-auto border border-accent rounded-md grid grid-cols-5 gap-3">
-      @foreach ($films as $f)
-        <x-film-card :f="$f" />
-      @endforeach
+    <section class="container p-4 mx-auto border border-accent rounded-md">
+      @if (count($films) > 0)
+        <div class="grid grid-cols-5 gap-3">
+          @foreach ($films as $f)
+            <x-film-card :f="$f" />
+          @endforeach
+        </div>
+      @else
+        <div class="card w-full">
+          <div class="card-body text-center bg-black/20">
+            <p class="italic">~ No reviews for this film yet ~</p>
+          </div>
+        </div>
+      @endif
     </section>
   </div>
 @endsection
