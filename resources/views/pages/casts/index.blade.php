@@ -54,11 +54,13 @@
 
 @section('content')
   <main class="mx-auto container">
-    <div class="mb-4 flex gap-2 justify-end items-center">
-      <a href="/casts/create" class="btn btn-accent flex justify-center items-center">
-        Add New Cast
-      </a>
-    </div>
+    @auth
+      <div class="mb-4 flex gap-2 justify-end items-center">
+        <a href="/casts/create" class="btn btn-accent flex justify-center items-center">
+          Add New Cast
+        </a>
+      </div>
+    @endauth
     <div class="card bg-black/10">
       <div class="card-body">
         <h3 class="card-title">Cast List</h3>
@@ -81,9 +83,7 @@
                   <div class="flex items-center gap-3">
                     <div class="avatar">
                       <div class="mask mask-squircle h-12 w-12">
-                        <img
-                          src="{{ asset('uploads/'.$cast->avatar) }}"
-                          alt="Avatar Tailwind CSS Component" />
+                        <img src="{{ asset('uploads/' . $cast->avatar) }}" alt="Avatar Tailwind CSS Component" />
                       </div>
                     </div>
                     <div>
@@ -119,7 +119,7 @@
               </tr>
             @endforeach
           </tbody>
-          
+
           {{-- 
           <tfoot>
             <tr>

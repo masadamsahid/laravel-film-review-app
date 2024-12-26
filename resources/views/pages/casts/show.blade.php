@@ -10,14 +10,16 @@
       <a href="/casts" class="btn btn-success">
         Back
       </a>
-      <div class="ms-auto p-0 flex align-items-center" style="gap: .8rem">
-        <a href="/casts/{{ $cast->id }}/edit" class="btn btn-warning">Edit</a>
-        <form method="POST" action="/casts/{{ $cast->id }}">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-error">Delete</button>
-        </form>
-      </div>
+      @auth
+        <div class="ms-auto p-0 flex align-items-center" style="gap: .8rem">
+          <a href="/casts/{{ $cast->id }}/edit" class="btn btn-warning">Edit</a>
+          <form method="POST" action="/casts/{{ $cast->id }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-error">Delete</button>
+          </form>
+        </div>
+      @endauth
     </div>
     <main class="flex gap-4">
       <div class="avatar">
