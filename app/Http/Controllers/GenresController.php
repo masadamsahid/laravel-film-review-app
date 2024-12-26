@@ -19,7 +19,14 @@ class GenresController extends Controller
     public function index()
     {
         //
-        $genres = Genre::all();
+        $genres_records = Genre::all()->sortBy('name');
+        $genres = array();
+
+        foreach ($genres_records as $g) {
+            $genres[$g->name[0]][] = $g;
+        }
+
+        // dd($genres, $genres["A"], $genres["A"][0], $genres["A"][0]->id);
 
         return view("pages.genres.index", ["genres"=> $genres]);
     }
