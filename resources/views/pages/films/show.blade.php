@@ -119,9 +119,18 @@
           <div class="flex gap-4 w-full relative group">
             @if ($user != null && $user->id === $r->user_id)
               <div class="z-20 absolute top-0 right-0 hidden group-hover:flex gap-2">
-                <a href="/reviews/{{ $r->id }}/edit" class="btn btn-sm btn-accent">
+                <button onclick="edit_review_modal_{{ $r->id }}.showModal()" class="btn btn-sm btn-accent">
                   Edit
-                </a>
+                </button>
+                <dialog id="edit_review_modal_{{ $r->id }}" class="modal">
+                  <div class="modal-box">
+                    <h3 class="text-lg font-bold">Edit Your Review</h3>
+                    <p class="py-4">Press ESC key or click outside to close</p>
+                  </div>
+                  <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                  </form>
+                </dialog>
                 <button href="/reviews/{{ $r->id }}/edit" class="btn btn-sm btn-error">
                   Delete
                 </button>
@@ -129,8 +138,11 @@
             @endif
             <div>
               <div class="avatar">
-                <div class="size-12 rounded-full">
-                  <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <div class="size-16 mask mask-hexagon bg-accent !flex justify-center items-center">
+                  <span class="text-xl font-semibold text-black">
+                    {{ strtoupper(join('',array_map(function ($str) {return $str[0];}, explode(' ', $r->user->name)))) }}
+                  </span>
+                  {{-- <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" /> --}}
                 </div>
               </div>
             </div>
@@ -140,15 +152,17 @@
                   {{ $r->user->name }}
                 </h2>
                 &bull;
-                <span class="text-accent fw-bold text-xl">&#x2605; <span class="underline">{{ $r->points }}/10</span></span>
                 <p class="text-warning italic">
                   {{ $r->updated_at > $r->created_at ? 'last update at ' . date_format($r->updated_at, 'd, M Y') : 'written at ' . date_format($r->created_at, 'd, M Y') }}
                 </p>
               </div>
-              <div class="card card-side bg-base-100 shadow-xl">
-                <p class="card-body border border-accent rounded-md">
+              <div class="card card-side bg-base-100 shadow-xl relative overflow-hidden border border-accent rounded-md">
+                <p class="card-body">
                   {{ $r->body }}
                 </p>
+                <span class="px-2 py-1 rounded-tl-lg badge-accent fw-bold text-md absolute bottom-0 right-0 z-30">
+                  &#x2605; <span>{{ $r->points }}/10</span>
+                </span>
               </div>
             </div>
           </div>

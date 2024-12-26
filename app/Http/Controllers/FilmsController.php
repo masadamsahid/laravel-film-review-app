@@ -154,7 +154,7 @@ class FilmsController extends Controller
     {
         $validated = $request->validate([
             "body" => "required|max:20000",
-            "points" => "integer|min:0|max:10",
+            "points" => "required|integer|min:0|max:10",
         ]);
 
         $curr_user = Auth::user();
@@ -170,5 +170,43 @@ class FilmsController extends Controller
         $review->save();
 
         return redirect("/films/" . $film_id);
+    }
+
+
+    public function update_review(Request $request, $film_id)
+    {
+        $validated = $request->validate([
+            "body" => "required|max:20000",
+            "points" => "required|integer|min:0|max:10",
+        ]);
+
+        $curr_user = Auth::user();
+
+        $review = Review::where("user_id", $curr_user->id)
+            ->where("film_id", $film_id)
+            ->first();
+
+        $review->user_id = $curr_user->id;
+        $review->film_id = $film_id;
+
+        $review->points = $validated["points"];
+        $review->body = $validated["body"];
+
+        $review->save();
+
+        return redirect("/films/" . $film_id);
+    }
+
+    public function delete_review(Request $request, $film_id)
+    {
+
+        $curr_user = Auth::user();
+
+        $review = Review::where("user_id", $curr_user->id)
+            ->where("film_id", $film_id)
+            ->first();
+
+        $review->delete();
+        return redirect('/films/' . $film_id);
     }
 }
