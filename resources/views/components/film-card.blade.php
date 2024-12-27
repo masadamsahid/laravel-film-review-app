@@ -1,4 +1,4 @@
-<a href="/films/{{ $f->id }}" class="card bg-base-100 shadow-xl group overflow-hidden relative h-96">
+<a href="/films/{{ $f->id }}" class="card bg-base-100 shadow-xl group overflow-hidden relative h-[480px]">
   <figure class="size-full">
     <img src="{{ asset('uploads/' . $f->poster) }}" alt="{{ $f->title }}" class="min-h-full min-w-full object-cover" />
   </figure>
