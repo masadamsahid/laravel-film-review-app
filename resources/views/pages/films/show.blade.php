@@ -91,13 +91,13 @@
               </div>
             @endif
             @csrf
-            <textarea name="body" class="textarea textarea-accent" placeholder="Write a review here..."></textarea>
+            <textarea name="body" rows="8" class="textarea textarea-accent" placeholder="Write a review here...">{{ old('body') }}</textarea>
             <div class="flex gap-2">
               <p>Points:</p>
               <div class="flex gap-2 flex-wrap">
                 @for ($i = 0; $i <= 10; $i++)
                   <label for="points-{{ $i }}" class="btn btn-accent btn-outline">
-                    <input type="radio" id="points-{{ $i }}" name="points" value="{{ $i }}" class="radio radio-accent" />
+                    <input type="radio" id="points-{{ $i }}" name="points" value="{{ $i }}" {{ old('points') ? 'checked' : null }} class="radio radio-accent" />
                     <p class="">
                       {{ $i }}
                     </p>
@@ -140,13 +140,13 @@
                         @endif
                         @csrf
                         @method('PUT')
-                        <textarea name="body" class="textarea textarea-accent" placeholder="Write a review here...">{{ $r->body }}</textarea>
+                        <textarea name="body" rows="8" class="textarea textarea-accent" placeholder="Write a review here...">{{ old('body') ? old('body') : $r->body }}</textarea>
                         <div class="flex gap-2">
                           <p>Points:</p>
                           <div class="flex gap-2 flex-wrap">
                             @for ($i = 0; $i <= 10; $i++)
                               <label for="points-{{ $i }}" class="btn btn-accent btn-outline">
-                                <input type="radio" id="points-{{ $i }}" name="points" value="{{ $i }}" {{ $r->points === $i ? 'checked' : null }} class="radio radio-accent" />
+                                <input type="radio" id="points-{{ $i }}" name="points" value="{{ $i }}" {{ old('points') != null ? (old('points') == $i ? 'checked' : null) : ($r->points === $i ? 'checked' : null) }} class="radio radio-accent" />
                                 <p class="">
                                   {{ $i }}
                                 </p>
