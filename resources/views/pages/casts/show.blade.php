@@ -33,13 +33,13 @@
           <table class="w-full">
             <tbody>
               <tr>
-                <td class="w-24">Age</td>
-                <td class="w-4">:</td>
+                <td class="w-24 align-top">Age</td>
+                <td class="w-4 align-top">:</td>
                 <td>{{ $cast->age }} years old</td>
               </tr>
               <tr>
-                <td>Bio</td>
-                <td>:</td>
+                <td class="align-top">Bio</td>
+                <td class="align-top">:</td>
                 <td>{{ $cast->bio }}</td>
               </tr>
             </tbody>
