@@ -35,7 +35,7 @@
 @extends('layouts.master')
 
 @section('title')
-  Edit {{ $film->title }}
+  {{ $film->title }} | Film Details - Re:Vielm
 @endsection
 
 @section('content')

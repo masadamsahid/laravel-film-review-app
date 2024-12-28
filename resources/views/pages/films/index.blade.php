@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+Re:Vielm - Review and share your thoughts on films
+@endsection
+
 @section('content')
   @auth
     <section class="container mx-auto p-4 flex justify-end">

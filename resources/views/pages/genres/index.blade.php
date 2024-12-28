@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+Genres | Re:Vielm
+@endsection
+
 @section('content')
   @auth
     <section class="container mx-auto p-4 flex justify-end">

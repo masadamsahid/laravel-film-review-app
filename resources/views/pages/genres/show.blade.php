@@ -1,5 +1,9 @@
 @extends('layouts.master')
 
+@section('title')
+{{ $genre->name }} | Genre Details - Re:Vielm
+@endsection
+
 @section('content')
   <div class="flex flex-col gap-4">
     @auth
