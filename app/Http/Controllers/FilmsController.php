@@ -122,7 +122,7 @@ class FilmsController extends Controller
 
         $updated_film->save();
 
-        return redirect("/films");
+        return redirect("/films/$id");
     }
 
     /**
