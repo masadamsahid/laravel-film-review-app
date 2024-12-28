@@ -63,9 +63,9 @@
         </h1>
         <p>Added on {{ date_format($film->created_at, 'd, M Y') }} {{ $film->updated_at > $film->created_at ? '(updated at ' . date_format($film->updated_at, 'd, M Y') . ')' : null }}</p>
         <div class="flex gap-2 items-center">
-          <p class="badge badge-lg badge-primary">Released on {{ $film->year }}</p>
+          <p class="btn btn-sm btn-primary rounded-full">Released on {{ $film->year }}</p>
           &bull;
-          <p class="badge badge-lg badge-accent">{{ $film->genre->name }}</p>
+          <a href="/genres/{{ $film->genre_id }}" class="btn btn-sm btn-outline btn-accent rounded-full">{{ $film->genre->name }}</a>
         </div>
         <div>
           <p>Summary:</p>
