@@ -25,7 +25,7 @@ class ReviewSeeder extends Seeder
             ["user_id"=> 4, "film_id" => 1, "points" => $this->sleep_get_rand(), "created_at" => now(), "updated_at"=> now(), "body" => "Nunc finibus magna id tristique condimentum"],
             ["user_id"=> 3, "film_id" => 1, "points" => $this->sleep_get_rand(), "created_at" => now(), "updated_at"=> now(), "body" => "In sed ligula a quam facilisis blandit"],
             
-            ["user_id"=> 2, "film_id" => 2, "points" => $this->sleep_get_rand(), "created_at" => now(), "updated_at"=> now(), "body" => "Aliquam volutpat justo vel purus tempor, in mattis est elementum"],
+            ["user_id"=> 2, "film_id" => 2, "points" => 10, "created_at" => now(), "updated_at"=> now(), "body" => "Aliquam volutpat justo vel purus tempor, in mattis est elementum"], // Frieren-sama saikyouuuuu
             
             ["user_id"=> 2, "film_id" => 3, "points" => $this->sleep_get_rand(), "created_at" => now(), "updated_at"=> now(), "body" => "Nam lobortis sapien quis dui semper accumsan"],
             ["user_id"=> 3, "film_id" => 3, "points" => $this->sleep_get_rand(), "created_at" => now(), "updated_at"=> now(), "body" => "Mauris venenatis urna sit amet sem ornare rhoncus"],
