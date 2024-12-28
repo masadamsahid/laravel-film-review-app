@@ -36,7 +36,7 @@ class CastController extends Controller
             "avatar" => "required|image|mimes:png,jpg,jpeg",
         ]);
 
-        $avatar_file_name = time() . "." . $request->avatar->extension();
+        $avatar_file_name = floor(microtime(true) * 1000) . "." . $request->avatar->extension();
         $request->avatar->move(public_path("uploads"), $avatar_file_name);
 
         $new_cast = new Cast;
@@ -83,7 +83,7 @@ class CastController extends Controller
         if ($request->has('avatar')) {
             File::delete('uploads/' . $existed_cast->avatar);
 
-            $avatar_file_name = time() . "." . $request->avatar->extension();
+            $avatar_file_name = floor(microtime(true) * 1000) . "." . $request->avatar->extension();
             $request->avatar->move(public_path("uploads"), $avatar_file_name);
             $existed_cast->avatar = $avatar_file_name;
         }
