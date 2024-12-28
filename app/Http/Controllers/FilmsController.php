@@ -50,7 +50,7 @@ class FilmsController extends Controller
             "genre_id" => "exists:genres,id",
         ]);
 
-        $poster_file_name = time() . "." . $request->poster->extension();
+        $poster_file_name = floor(microtime(true) * 1000) . "." . $request->poster->extension();
         $request->poster->move(public_path("uploads"), $poster_file_name);
 
         $new_film = new Film;
@@ -115,7 +115,7 @@ class FilmsController extends Controller
         if ($request->has('poster')) {
             File::delete('uploads/' . $updated_film->poster);
 
-            $poster_file_name = time() . "." . $request->poster->extension();
+            $poster_file_name = floor(microtime(true) * 1000) . "." . $request->poster->extension();
             $request->poster->move(public_path("uploads"), $poster_file_name);
             $updated_film->poster = $poster_file_name;
         }
