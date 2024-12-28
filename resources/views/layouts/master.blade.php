@@ -13,7 +13,7 @@
 <body>
   @include('partials.navbar')
 
-  <div class="pt-20">
+  <div class="pt-20 min-h-screen">
     @yield('content')
   </div>
   <footer class="w-full bg-primary p-4">
