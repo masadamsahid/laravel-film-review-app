@@ -61,11 +61,11 @@
         <h1 class="text-6xl font-bold">
           {{ $film->title }}
         </h1>
-        <p>Added on {{ date_format($film->created_at, 'd, M Y') }} {{ $film->updated_at > $film->created_at ?? '(updated at ' . date_format($film->updated_at, 'd, M Y') . ')' }}</p>
+        <p>Added on {{ date_format($film->created_at, 'd, M Y') }} {{ $film->updated_at > $film->created_at ? '(updated at ' . date_format($film->updated_at, 'd, M Y') . ')' : null }}</p>
         <div class="flex gap-2 items-center">
-          <p>Released on {{ $film->year }}</p>
+          <p class="badge badge-lg badge-primary">Released on {{ $film->year }}</p>
           &bull;
-          <div class="badge badge-lg badge-accent">{{ $film->genre->name }}</div>
+          <p class="badge badge-lg badge-accent">{{ $film->genre->name }}</p>
         </div>
         <div>
           <p>Summary:</p>
