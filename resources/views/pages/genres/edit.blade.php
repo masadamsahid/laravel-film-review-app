@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-  Add New Genre
+  Edit {{$genre->name}}
 @endsection
 
 @section('content')
@@ -10,6 +10,15 @@
   </div>
   <section class="container mx-auto p-4 flex flex-col gap-4">
     <h1>Edit Genre ({{ $genre->name }})</h1>
+    @if ($errors->any())
+      <div class="alert alert-error">
+        <ul>
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
     <form action="/genres/{{ $genre->id }}" method="POST" class="flex flex-col gap-4">
       @csrf
       @method('PUT')
@@ -21,7 +30,7 @@
           type="text"
           placeholder="Type here"
           class="input input-bordered input-accent w-full"
-          value="{{ $genre->name }}"
+          value="{{ old('name') ? old('name') :  $genre->name }}"
         />
       </div>
       <div class="flex flex-col gap-2">
@@ -32,7 +41,7 @@
           rows="10"
           class="textarea textarea-accent"
           placeholder="Description"
-        >{{ $genre->desc }}</textarea>
+        >{{ old('desc') ? old('desc') : $genre->desc }}</textarea>
       </div>
       <button type="submit" class="btn btn-accent">
         CREATE
