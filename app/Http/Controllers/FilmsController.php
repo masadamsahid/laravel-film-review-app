@@ -44,7 +44,7 @@ class FilmsController extends Controller
         //
         $validated = $request->validate([
             "title" => "required|max:100",
-            "year" => "integer",
+            "year" => "integer|min:0",
             "summary" => "required|min:10|max:20000",
             "poster" => "required|image|mimes:png,jpg,jpeg",
             "genre_id" => "exists:genres,id",
@@ -98,7 +98,7 @@ class FilmsController extends Controller
         //
         $validated = $request->validate([
             "title" => "required|max:100",
-            "year" => "integer",
+            "year" => "integer|min:0",
             "summary" => "required|min:10|max:20000",
             "poster" => "image|mimes:png,jpg,jpeg",
             "genre_id" => "exists:genres,id",
