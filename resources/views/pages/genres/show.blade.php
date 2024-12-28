@@ -30,7 +30,7 @@
       @else
         <div class="card w-full">
           <div class="card-body text-center bg-black/20">
-            <p class="italic">~ No reviews for this film yet ~</p>
+            <p class="italic">~ No films in this genre yet ~</p>
           </div>
         </div>
       @endif

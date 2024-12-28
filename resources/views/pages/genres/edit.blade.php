@@ -6,7 +6,7 @@
 
 @section('content')
   <div class="container mx-auto p-4 flex">
-    <a href="/genres/create" class="btn btn-accent">&larr; Back</a>
+    <a href="/genres/{{ $genre->id }}" class="btn btn-accent">&larr; Back</a>
   </div>
   <section class="container mx-auto p-4 flex flex-col gap-4">
     <h1>Edit Genre ({{ $genre->name }})</h1>
